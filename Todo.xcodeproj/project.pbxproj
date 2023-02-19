@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		EBC1F9C729A2529200883D68 /* AddView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBC1F9C629A2529200883D68 /* AddView.swift */; };
 		EBE6148329A100320069CB50 /* TodoApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBE6148229A100320069CB50 /* TodoApp.swift */; };
 		EBE6148729A100340069CB50 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EBE6148629A100340069CB50 /* Assets.xcassets */; };
 		EBE6148A29A100340069CB50 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EBE6148929A100340069CB50 /* Preview Assets.xcassets */; };
@@ -37,6 +38,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		EBC1F9C629A2529200883D68 /* AddView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddView.swift; sourceTree = "<group>"; };
 		EBE6147F29A100320069CB50 /* Todo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Todo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EBE6148229A100320069CB50 /* TodoApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoApp.swift; sourceTree = "<group>"; };
 		EBE6148629A100340069CB50 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -148,6 +150,7 @@
 			children = (
 				EBE614B129A100D40069CB50 /* MainView.swift */,
 				EBE614B329A100DF0069CB50 /* ListView.swift */,
+				EBC1F9C629A2529200883D68 /* AddView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -292,6 +295,7 @@
 			files = (
 				EBE614B629A1024E0069CB50 /* ToDoViewModel.swift in Sources */,
 				EBE614B429A100DF0069CB50 /* ListView.swift in Sources */,
+				EBC1F9C729A2529200883D68 /* AddView.swift in Sources */,
 				EBE614B029A100730069CB50 /* Task.swift in Sources */,
 				EBE614B229A100D40069CB50 /* MainView.swift in Sources */,
 				EBE6148329A100320069CB50 /* TodoApp.swift in Sources */,

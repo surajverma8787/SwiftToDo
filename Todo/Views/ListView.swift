@@ -29,8 +29,6 @@ struct ListView: View {
     
     var body: some View {
         
-        
-       
             NavigationView{
                 List{
                     
@@ -42,12 +40,16 @@ struct ListView: View {
                                 Text("Created Time : \(todo.currDate)")
                         }
                         
+                        HStack{
+                            NavigationLink("Edit Todos", destination: AddView(isEditing : .constant(true)))
+                                .foregroundColor(Color.blue)
+                        }
+                        
                     }
                     .onDelete(perform: todoViewModel.removeTask)
                     
                 }
                 
-                .navigationTitle("View List")
             }
         
        

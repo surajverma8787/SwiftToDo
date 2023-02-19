@@ -9,98 +9,26 @@ import SwiftUI
 
 struct MainView: View {
     
-    let string = " 29 October 2019 20:15:55 +0200"
-    
     @ObservedObject var todoVM = ToDoListViewModel()
-    
-    let dateFormatter : DateFormatter = {
-        
-    let d = DateFormatter()
-    d.dateFormat = "dd MMM yyyy HH:mm:ss Z"
-    return d
-        
-    }()
-    
-    @State var newItemTitle : String = ""
-    @State var newItemDesc : String = ""
-    @State var isSubmitted : Bool = false
-    
-    struct OvalTextFieldStyle: TextFieldStyle {
-        func _body(configuration: TextField<Self._Label>) -> some View {
-            configuration
-                .padding(20)
-                .background(LinearGradient(gradient: Gradient(colors: [Color.white, Color.white]), startPoint: .topLeading, endPoint: .bottomTrailing))
-                .cornerRadius(20)
-                .shadow(color: .gray, radius: 10)
-        }
-    }
-    
-    struct GrowingButton: ButtonStyle {
-        func makeBody(configuration: Configuration) -> some View {
-            configuration.label
-                .padding()
-                .background(.blue)
-                .foregroundColor(.white)
-                .clipShape(Capsule())
-                .scaleEffect(configuration.isPressed ? 1.2 : 1)
-                .animation(.easeOut(duration: 0.2), value: configuration.isPressed)
-        }
-    }
-    
-    
     var body: some View {
         VStack{
-            
             NavigationView{
                 Form{
-                    
                     Section(header: Text("Add List")
                         .font(.custom("Arial", size : 20))){
                             
                             NavigationLink("Add List"){
-                                
-                                TextField("Enter Item Title", text: $newItemTitle).textFieldStyle(OvalTextFieldStyle())
-                                
-                                TextField("Enter Item Desc", text: $newItemDesc)
-                                    .textFieldStyle(OvalTextFieldStyle())
-                                
-                                Button("Submit"){
-                                    
-                                    let d = Date()
-                                    let newDate = dateFormatter.string(from: d)
-                                    
-                                    let newTodo = Task(title: newItemTitle, description: newItemDesc, currDate: newDate, completed: false)
-                                    if (newItemDesc != "" && newItemTitle != ""){
-                                        todoVM.todos.append(newTodo)
-                                        isSubmitted = true
-                                        newItemDesc = ""; newItemTitle = ""
-                                        
-                                    }
-                                
-                                }
-                                .padding(50)
-                                .buttonStyle(GrowingButton())
-                                
-                                if(isSubmitted){
-                                    Text("Todo Submitted")
-                                        .font(.custom("Arial", size: 30))
-                                  
-                                }
-                                
+                                AddView(isEditing : .constant(false))
                             }
-                    }
-                    
+                        }
+                  
                     Section(header : Text("View List")){
                         NavigationLink("Show Todos", destination: ListView())
                     }
-                    
                 }
-                
-                
-               
             }
-            
-        }.environmentObject(todoVM)
+            .environmentObject(todoVM)
+        }
     }
 }
 
@@ -109,9 +37,10 @@ struct MainView_Previews: PreviewProvider {
         MainView()
             .environmentObject(ToDoListViewModel())
             
-            
     }
 }
+
+
 
 
 

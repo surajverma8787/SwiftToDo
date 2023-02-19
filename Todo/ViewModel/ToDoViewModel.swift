@@ -18,6 +18,12 @@ class ToDoListViewModel : ObservableObject{
            todos.remove(atOffsets: indexSet)
        }
     
+    func updateItem(todo: Task) {
+            if let index = todos.firstIndex(where: { $0.id == todo.id }) {
+                todos[index] = todo
+            }
+        }
+    
 }
 
 
