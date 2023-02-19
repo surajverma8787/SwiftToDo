@@ -9,11 +9,8 @@ import SwiftUI
 
 struct ListView: View {
     
-    var todos : [Task]
+    @ObservedObject var todoViewModel : ToDoListViewModel
     
-    init(todos: [Task]) {
-        self.todos = todos
-    }
     
     struct GrowingButton: ButtonStyle {
         func makeBody(configuration: Configuration) -> some View {
@@ -28,48 +25,37 @@ struct ListView: View {
         }
     }
     
+    @State var deleteId : Bool = false
     
     var body: some View {
         
-        NavigationView{
-            List{
-                ForEach(todos) { todo in
-                        
-                   VStack{
-                            Text("Title :   \(todo.title)")
-                            Text("Desc :   \(todo.description)")
-                            Text("Created Time : \(todo.currDate)")
-                    }
-                        
-                    HStack{
-                        
-                        Button("Edit"){
-                        
+        
+       
+            NavigationView{
+                List{
+                    
+                    ForEach(todoViewModel.todos, id : \.self) { todo in
+                            
+                       VStack{
+                                Text("Title :   \(todo.title)")
+                                Text("Desc :   \(todo.description)")
+                                Text("Created Time : \(todo.currDate)")
                         }
-                        .padding(20)
-                        .buttonStyle(GrowingButton())
                         
-                        Button("Delete"){
-                          
-                        }
-                        .padding(20)
-                        .buttonStyle(GrowingButton())
                     }
-                       
-                        
-
-                        
+                    .onDelete(perform: todoViewModel.removeTask)
                     
                 }
+                
+                .navigationTitle("View List")
             }
-            
-            .navigationTitle("View List")
-        }
+        
+       
     }
 }
 
 struct ListView_Previews: PreviewProvider {
     static var previews: some View {
-       ListView(todos: [Task(title: "Wash", description: "Wash Clothes", currDate: "15/09/2022")])
+        ListView(todoViewModel: ToDoListViewModel())
     }
 }

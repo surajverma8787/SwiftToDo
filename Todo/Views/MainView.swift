@@ -13,10 +13,6 @@ struct MainView: View {
     
     @ObservedObject var todoVM = ToDoListViewModel()
     
-    init(todoVM: ToDoListViewModel = ToDoListViewModel()) {
-        self.todoVM = todoVM
-    }
-
     let dateFormatter : DateFormatter = {
         
     let d = DateFormatter()
@@ -27,7 +23,7 @@ struct MainView: View {
     
     @State var newItemTitle : String = ""
     @State var newItemDesc : String = ""
-    @State var isSubmit : Bool = false
+    @State var isSubmitted : Bool = false
     
     struct OvalTextFieldStyle: TextFieldStyle {
         func _body(configuration: TextField<Self._Label>) -> some View {
@@ -51,12 +47,13 @@ struct MainView: View {
         }
     }
     
+    
     var body: some View {
         VStack{
             
             NavigationView{
                 Form{
-                
+                    
                     Section(header: Text("Add List")
                         .font(.custom("Arial", size : 20))){
                             
@@ -72,21 +69,29 @@ struct MainView: View {
                                     let d = Date()
                                     let newDate = dateFormatter.string(from: d)
                                     
-                                    let newTodo = Task(title: newItemTitle, description: newItemDesc, currDate: newDate)
+                                    let newTodo = Task(title: newItemTitle, description: newItemDesc, currDate: newDate, completed: false)
                                     if (newItemDesc != "" && newItemTitle != ""){
-                                        todoVM.addTask(todo: newTodo)
-                                        isSubmit = true
+                                        todoVM.todos.append(newTodo)
+                                        isSubmitted = true
+                                        newItemDesc = ""; newItemTitle = ""
+                                        
                                     }
                                 
                                 }
                                 .padding(50)
                                 .buttonStyle(GrowingButton())
                                 
+                                if(isSubmitted){
+                                    Text("Todo Submitted")
+                                        .font(.custom("Arial", size: 30))
+                                  
+                                }
+                                
                             }
                     }
                     
                     Section(header : Text("View List")){
-                        NavigationLink("Show Todos", destination: ListView(todos: todoVM.todos))
+                        NavigationLink("Show Todos", destination: ListView(todoViewModel: todoVM))
                     }
                     
                 }
