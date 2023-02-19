@@ -9,7 +9,7 @@ import SwiftUI
 
 struct ListView: View {
     
-    @ObservedObject var todoViewModel : ToDoListViewModel
+    @EnvironmentObject var todoViewModel : ToDoListViewModel
     
     
     struct GrowingButton: ButtonStyle {
@@ -56,6 +56,7 @@ struct ListView: View {
 
 struct ListView_Previews: PreviewProvider {
     static var previews: some View {
-        ListView(todoViewModel: ToDoListViewModel())
+        ListView()
+            .environmentObject(ToDoListViewModel())
     }
 }

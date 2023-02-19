@@ -91,7 +91,7 @@ struct MainView: View {
                     }
                     
                     Section(header : Text("View List")){
-                        NavigationLink("Show Todos", destination: ListView(todoViewModel: todoVM))
+                        NavigationLink("Show Todos", destination: ListView())
                     }
                     
                 }
@@ -100,13 +100,16 @@ struct MainView: View {
                
             }
             
-        }
+        }.environmentObject(todoVM)
     }
 }
 
 struct MainView_Previews: PreviewProvider {
     static var previews: some View {
         MainView()
+            .environmentObject(ToDoListViewModel())
+            
+            
     }
 }
 
