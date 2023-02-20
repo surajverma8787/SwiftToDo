@@ -15,21 +15,22 @@ struct ListView: View {
     struct GrowingButton: ButtonStyle {
         func makeBody(configuration: Configuration) -> some View {
             configuration.label
-                .padding(20)
+                .padding(10)
                 .background(.purple)
                 .foregroundColor(.white)
                 .clipShape(Rectangle())
-                .cornerRadius(30)
+                .cornerRadius(50)
                 .scaleEffect(configuration.isPressed ? 1.2 : 1)
                 .animation(.easeOut(duration: 0.2), value: configuration.isPressed)
         }
     }
     
     @State var deleteId : Bool = false
+    @State var navigated : Bool = false
     
     var body: some View {
         
-            NavigationView{
+           
                 List{
                     
                     ForEach(todoViewModel.todos, id : \.self) { todo in
@@ -41,16 +42,39 @@ struct ListView: View {
                         }
                         
                         HStack{
-                            NavigationLink("Edit Todos", destination: AddView(isEditing : .constant(true)))
+                        
+                            NavigationLink("Edit Todo", destination: AddView(isEditing : true, index : todo.id, editTodo: todo))
                                 .foregroundColor(Color.blue)
+                            
+//                            NavigationStack{
+//                                VStack{
+//                                    Button("Edit"){
+//                                        navigated = true
+//                                    }
+//                                    .buttonStyle(GrowingButton())
+//                                }
+//                                .navigationDestination(isPresented: $navigated){
+//                                    AddView(isEditing : true, index : todo.id, editTodo: todo)
+//                                }
+//                            }
+                            
+                            
+                            
+                            Button("Delete"){
+                                
+                                todoViewModel.deleteItem(ind: todo.id)
+                            }
+                            .buttonStyle(GrowingButton())
+                            
                         }
+                      
                         
                     }
-                    .onDelete(perform: todoViewModel.removeTask)
+                    
                     
                 }
                 
-            }
+            
         
        
     }

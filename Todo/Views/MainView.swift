@@ -18,16 +18,18 @@ struct MainView: View {
                         .font(.custom("Arial", size : 20))){
                             
                             NavigationLink("Add List"){
-                                AddView(isEditing : .constant(false))
+                                AddView(isEditing : false, index : "")
                             }
                         }
                   
                     Section(header : Text("View List")){
                         NavigationLink("Show Todos", destination: ListView())
                     }
+                   
+                    
                 }
-            }
-            .environmentObject(todoVM)
+            } .environmentObject(todoVM)
+            
         }
     }
 }
